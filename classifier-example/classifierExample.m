@@ -3,16 +3,16 @@ close
 clc
 
 % Class constants.
-classRadius = 10 ^ 1;
-classElements = 4;
-
-% Test constants.
-scale = 5 * 10 ^ 1;
-tests = 100;
+classElements = 8;
+classRadius = 1e1;
 
 % Script constants.
-radius = 10 ^ 2;
-classes = 12;
+classes = 24;
+radius = 1e2;
+
+% Test constants.
+scale = radius / 2;
+tests = 100;
 
 % Compute degrees for every class center.
 step = (2 * pi) / classes;
@@ -76,10 +76,10 @@ for k = 1 : tests
         end
     end
     % Output for this test case.
-    disp(['El vector ', mat2str(testPoint) ,' pertenece a la clase ', num2str(minClass)]);
+    fprintf('El vector [%f; %f] ', testPoint);
+    fprintf('pertenece a la clase %d\n', minClass);
     % Plot the test vector.
     plot(testPoint(1, :), testPoint(2, :), 'bo');
 end
 
 clear
-close
