@@ -21,22 +21,22 @@ for k = 1 : classes
     classMembers(1, :) = classMembers(1, :) + centers(1, k);
     classMembers(2, :) = classMembers(2, :) + centers(2, k);
     classifiers(:, :, k) = classMembers;
-    plot(classMembers(1, :), classMembers(2, :), 'go');
 end
 
 % Allocate space for class mean vectors.
 means = zeros(2, classes);
 grid on
 hold on
+legend
 
 for k = 1 : classes
-    plot(classifiers(1, :, k), classifiers(2, :, k), 'ro');
+    scatter(classifiers(1, :, k), classifiers(2, :, k), 'filled', 'DisplayName', strcat('C', num2str(k)));
     % Compute the class means.
     means(:, k) = mean(classifiers(:, :, k), 2);
 end
 
 % Plot the class means.
-plot(means(1, :), means(2, :), 'go');
+scatter(means(1, :), means(2, :), 'filled', 'DisplayName', 'Means');
 
 shouldTest = 1;
 
@@ -67,7 +67,7 @@ while shouldTest == 1
     fprintf('El vector [%f; %f] ', testPoint);
     fprintf('pertenece a la clase %d\n', minClass);
     % Plot the test vector.
-    plot(testPoint(1, :), testPoint(2, :), 'bo');
+    scatter(testPoint(1, :), testPoint(2, :), 'LineWidth', 1.5, 'HandleVisibility', 'off');
     shouldTest = input('¿Quiere hacer otra prueba? (Si = 1, No = 0) : ');
 end
 
