@@ -2,7 +2,7 @@ clear
 close
 clc
 
-fprintf('Clasificador de la Distancia Mínima\n\n');
+fprintf('Clasificador de Vectores\n\n');
 classes = input('¿Cuántas clases quieres? : ');
 members = input('¿Cuántos elementos por clase? : ');
 
@@ -49,27 +49,17 @@ while shouldTest == 1
     % Ask user for y-coordinate.
     ty = input('Coordenada ''y'' de la prueba: ');
     % Construct test vector.
-    testPoint = [ tx ; ty ];
+    testVector = [ tx ; ty ];
     % Minimal distance starts at infinity.
     minDist = Inf;
     % Pick any class as the closest class.
-    minClass = 1;
-    for l = 1 : classes
-        % Compute distance to class mean.
-        dist = norm(means(:, l) - testPoint);
-        if minDist > dist
-            % Minimize distance.
-            minDist = dist;
-            % Store the new closest class.
-            minClass = l;
-        end
-    end
+    minClass = minimumEuclidean(classifiers, means, testVector);
     % Output for this test case.
-    fprintf('El vector [%f; %f] ', testPoint);
+    fprintf('El vector [%f; %f] ', testVector);
     fprintf('pertenece a la clase %d\n', minClass);
     % Plot the test vector.
-    %scatter(testPoint(1, :), testPoint(2, :), 'LineWidth', 1.5, 'HandleVisibility', 'off');
-    scatter(testPoint(1, :), testPoint(2, :), 'LineWidth', 1.5, 'DisplayName', strcat('X', num2str(testCount)));
+    % 'HandleVisibility', 'off');
+    scatter(testVector(1, :), testVector(2, :), 'LineWidth', 1.5, 'DisplayName', strcat('X', num2str(testCount)));
     shouldTest = input('¿Quiere hacer otra prueba? (Si = 1, No = 0) : ');
     testCount = testCount + 1;
 end
