@@ -39,6 +39,7 @@ end
 scatter(means(1, :), means(2, :), 'filled', 'DisplayName', 'Means');
 
 shouldTest = 1;
+testCount = 1;
 
 while shouldTest == 1
     % Generate random test.
@@ -67,8 +68,10 @@ while shouldTest == 1
     fprintf('El vector [%f; %f] ', testPoint);
     fprintf('pertenece a la clase %d\n', minClass);
     % Plot the test vector.
-    scatter(testPoint(1, :), testPoint(2, :), 'LineWidth', 1.5, 'HandleVisibility', 'off');
+    %scatter(testPoint(1, :), testPoint(2, :), 'LineWidth', 1.5, 'HandleVisibility', 'off');
+    scatter(testPoint(1, :), testPoint(2, :), 'LineWidth', 1.5, 'DisplayName', strcat('X', num2str(testCount)));
     shouldTest = input('¿Quiere hacer otra prueba? (Si = 1, No = 0) : ');
+    testCount = testCount + 1;
 end
 
 clear
