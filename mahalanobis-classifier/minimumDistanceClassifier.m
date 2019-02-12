@@ -50,10 +50,14 @@ while shouldTest == 1
     ty = input('Coordenada ''y'' de la prueba: ');
     % Construct test vector.
     testVector = [ tx ; ty ];
-    % Minimal distance starts at infinity.
-    minDist = Inf;
-    % Pick any class as the closest class.
-    minClass = minimumEuclidean(classifiers, means, testVector);
+    option = askOption();
+    if option == 1
+        minClass = minimumEuclidean(classifiers, means, testVector);
+    elseif option == 2
+        minClass = minimumMahalanobis(classifiers, means, testVector);
+    else
+        break
+    end
     % Output for this test case.
     fprintf('El vector [%f; %f] ', testVector);
     fprintf('pertenece a la clase %d\n', minClass);
