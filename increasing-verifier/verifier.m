@@ -3,7 +3,7 @@ close
 clc
 
 dim = 2;
-n = 7;
+n = 10;
 m = n;
 z = n;
 
@@ -12,9 +12,12 @@ valid = zeros(1, 2 * n);
 label = zeros(1, 2 * n);
 
 for k = 1 : 2 * n
-    label(1, k) = k;
-    valid(1, k) = 1;
+    label(:, k) = k;
+    valid(:, k) = 1;
 end
+
+tree = zeros(1, dim + 1);
+tp = 0;
 
 while m >= 2
     distances = zeros(m);
@@ -36,13 +39,12 @@ while m >= 2
             end
             b = b + 1;
             distances(a, b) = norm(samples(k, :) - samples(l, :));
-            distances(b, a) = distances(a, b);
             if distances(a, b) < minDist && a ~= b
                 minDist = distances(a, b);
+                p = min(k, l);
+                q = max(k, l);
                 x = a;
                 y = b;
-                p = k;
-                q = l;
             end
             if b == m
                 break
@@ -73,6 +75,8 @@ while m >= 2
             break
         end
     end
+    tp = tp + 1;
+    tree(tp, :) = [ p q minDist ];
 end
 
-dendrogram(linkage(samples(1 : n, :), 'average'));
+dendrogram(tree);
