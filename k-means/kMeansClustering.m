@@ -2,26 +2,22 @@ close
 clear
 clc
 
-%legend
-
-figure(1);
-img = imread("kMeansInput.png"); % Germany Flag
-%img = imread("kMeansInput.jpg"); % Italy Flag
-%img = imread("kMeansInput1.jpg"); % France Flag
+%img = imread("kMeansInput2.png");  % Colombia Flag
+%img = imread("kMeansInput.png");   % Germany Flag
+img = imread("kMeansInput1.jpg");  % France Flag
+%img = imread("kMeansInput.jpg");   % Italy Flag
 %img = rgb2gray(img);
-imshow(img);
-hold on
 
-[ dx, dy, dz ] = size(img);
+[ dx, dy, dim ] = size(img);
 
 disp("Algoritmo K-Means.");
 
 axes = 2;
-n = 5000;
+n = 3500;
 m = 3;
 
 threshold = 1e-9;
-dim = 3;
+%dim = 3;
 
 pixels = rand(n, axes);
 pixels(:, 1) = floor(pixels(:, 1) * (dx - 1) + 1);
@@ -30,11 +26,12 @@ pixels(:, :) = pixels(randperm(n), :);
 
 vectors = zeros(n, dim);
 for k = 1 : n
-    vectors(k, 1) = img(pixels(k, 1), pixels(k, 2), 1);
-    vectors(k, 2) = img(pixels(k, 1), pixels(k, 2), 2);
-    vectors(k, 3) = img(pixels(k, 1), pixels(k, 2), 3);
+    for l = 1 : dim
+        vectors(k, l) = img(pixels(k, 1), pixels(k, 2), l);
+        %vectors(k, 2) = img(pixels(k, 1), pixels(k, 2), 2);
+        %vectors(k, 3) = img(pixels(k, 1), pixels(k, 2), 3);
+    end
 end
-
 
 means = zeros(m, dim);
 for k = 1 : m
@@ -103,11 +100,22 @@ while 1
     prev(:, :) = means(:, :);
 end
 
+fprintf("Se logró en %d iteraciones.\n", it);
+
+figure(1);
+
+imshow(img);
+
+hold on
+legend
+
 for k = 1 : m
     cluster = pixels(clusters{k}, :);
     [s, ~] = size(cluster);
-    scatter(cluster(:, 2), cluster(:, 1), 'filled');
-    fprintf("Cluster %d size: %d\n", k, s);
+    scatter(cluster(:, 2), cluster(:, 1), 'filled', 'DisplayName', strcat("C", num2str(k)));
+    %fprintf("Cluster %d size: %d\n", k, s);
 end
 
-fprintf("Se logró en %d iteraciones.\n", it);
+%figure(2);
+
+%imshow(img);
