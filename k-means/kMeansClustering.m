@@ -3,8 +3,8 @@ clear
 clc
 
 %img = imread("kMeansInput2.png");  % Colombia Flag
-%img = imread("kMeansInput.png");   % Germany Flag
-img = imread("kMeansInput1.jpg");  % France Flag
+img = imread("kMeansInput.png");   % Germany Flag
+%img = imread("kMeansInput1.jpg");  % France Flag
 %img = imread("kMeansInput.jpg");   % Italy Flag
 %img = rgb2gray(img);
 
@@ -86,7 +86,7 @@ while 1
     for k = 1 : m
         if norm(prev(k, :) - means(k, :)) > threshold
             change = 1;
-            break;
+            break
         end
     end
     %for k = 1 : m
@@ -115,7 +115,3 @@ for k = 1 : m
     scatter(cluster(:, 2), cluster(:, 1), 'filled', 'DisplayName', strcat("C", num2str(k)));
     %fprintf("Cluster %d size: %d\n", k, s);
 end
-
-%figure(2);
-
-%imshow(img);
